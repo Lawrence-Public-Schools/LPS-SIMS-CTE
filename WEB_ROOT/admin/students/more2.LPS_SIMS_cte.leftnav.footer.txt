@@ -1,0 +1,12 @@
+<script type="text/javascript">
+$j(document).ready(function () {
+  var $cte = $j('<li><a href="lps_sims_cte.html?frn=~(studentfrn)">SIMS - CTE Ch74</a></li>');
+  // Keep alphabetical with other SIMS links: try to insert before SIMS - Early College, otherwise fall back after the MA state link.
+  var $early = $j("ul#std_information > li > a:contains('SIMS - Early College')").parent();
+  if ($early.length) {
+    $early.before($cte);
+  } else {
+    $j("ul#std_information > li > a[href^='state/stateMA.html?frn=']").parent().after($cte);
+  }
+});
+</script>
