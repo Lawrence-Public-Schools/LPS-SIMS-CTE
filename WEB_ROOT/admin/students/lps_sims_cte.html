@@ -124,12 +124,28 @@
 
     <div class="box-round">
       <h3>Student Programs</h3>
-      <iframe
-        id="studentProgramsFrame"
-        title="Student Programs"
-        src="/admin/students/specialprograms.html?frn=~(studentfrn)&gs=true"
-        style="width: 100%; border: 0; min-height: 240px; visibility: hidden;"
-        scrolling="no"></iframe>
+      <table border="0" cellspacing="0" cellpadding="4">
+        <tr>
+          <td align="center" colspan="5">
+            <a href="specialprogramsedit.html?frn=041-99~[if#gs.gpv.gs=true]&gs=true[/if#gs]" id="btnNew" name="btnNew" class="button">~[text:psx.html.admin_students.specialprograms.new]</a>
+          </td>
+        </tr>
+        <tr bgcolor="#f6f6f6">
+          <td class="bold">~[text:psx.html.admin_students.specialprograms.program_name]</td>
+          <td class="bold">~[text:psx.html.admin_students.specialprograms.entry_date]</td>
+          <td class="bold">~[text:psx.html.admin_students.specialprograms.exit_date]</td>
+          <td class="bold">~[text:psx.html.admin_students.specialprograms.grade_level]</td>
+          <td class="bold">~[text:psx.html.admin_students.specialprograms.exit_code]</td>
+        </tr>
+        <tr bgcolor="#edf3fe">~[tlist;spenrollments;studentid=~(curstudid);nonemessage=~[text:psx.html.admin_students.specialprograms.no_special_program_enrollments_found_for_this_student];alternatecolor;sortcmd;enter_date,>]
+          <td>~(relspecialprogramname)</td>
+          <td><a href="specialprogramsedit.html?frn=~(frn)~[if#gs.gpv.gs=true]&gs=true[/if#gs]">~(enter_date)</a></td>
+          <td>~(exit_date)</td>
+          <td align="center">~(gradeLevel)</td>
+          <td>~(exitcode)</td>
+        </tr>
+      </table>
+      <br>
     </div>
 
     ~[wc:admin_footer_frame_css]
@@ -165,32 +181,7 @@
       InitialloadProgParticipationData();
       DOE035_DisableDiscont();
       DOE042_DisableDiscont();
-      wireStudentProgramsFrame();
     });
-
-    function wireStudentProgramsFrame() {
-      var frame = document.getElementById('studentProgramsFrame');
-      if (!frame) { return; }
-      frame.addEventListener('load', function () {
-        try {
-          var doc = frame.contentDocument || frame.contentWindow.document;
-          var $doc = $j(doc);
-          var $box = $doc.find('div.box-round').first();
-          if (!$box.length) { return; }
-
-          $doc.find('body').empty().append($box);
-          $box.css({ 'margin': '0' });
-
-          var height = $box.outerHeight(true);
-          if (height) {
-            frame.style.height = height + 'px';
-          }
-          frame.style.visibility = 'visible';
-        } catch (e) {
-          // Ignore cross-frame access issues.
-        }
-      });
-    }
   </script>
 </body>
 
