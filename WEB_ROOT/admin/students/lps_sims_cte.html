@@ -124,40 +124,12 @@
 
     <div class="box-round">
       <h3>Student Programs</h3>
-      <table border="0" cellspacing="0" cellpadding="4">
-        <tr>
-          <td align="center" colspan="5">
-            <a href="specialprogramsedit.html?frn=~(studentfrn)" id="btnNew" name="btnNew" class="button">New</a>
-          </td>
-        </tr>
-        <tr class="~[evenoddrow]">
-          <td class="bold">Program Name</td>
-          <td class="bold">Entry Date</td>
-          <td class="bold">Exit Date</td>
-          <td class="bold">Grade Level</td>
-          <td class="bold">Exit Code</td>
-        </tr>
-        ~[tlist_sql;
-          SELECT
-            p.name program_name,
-            sp.entrydate entry_date,
-            sp.exitdate exit_date,
-            sp.grade_level grade_level,
-            sp.exitcode exit_code
-          FROM studentprograms sp
-          JOIN programs p ON p.id = sp.programid
-          WHERE sp.studentid = ~(ID)
-          ORDER BY sp.entrydate DESC;
-        ]
-          <tr class="~[evenoddrow]">
-            <td>~(program_name)</td>
-            <td>~(entry_date)</td>
-            <td>~(exit_date)</td>
-            <td>~(grade_level)</td>
-            <td>~(exit_code)</td>
-          </tr>
-        [/tlist_sql]
-      </table>
+      <iframe
+        id="studentProgramsFrame"
+        title="Student Programs"
+        src="/admin/students/specialprograms.html?frn=~(studentfrn)&gs=true"
+        style="width: 100%; border: 0; min-height: 240px; visibility: hidden;"
+        scrolling="no"></iframe>
     </div>
 
     ~[wc:admin_footer_frame_css]
@@ -193,7 +165,32 @@
       InitialloadProgParticipationData();
       DOE035_DisableDiscont();
       DOE042_DisableDiscont();
+      wireStudentProgramsFrame();
     });
+
+    function wireStudentProgramsFrame() {
+      var frame = document.getElementById('studentProgramsFrame');
+      if (!frame) { return; }
+      frame.addEventListener('load', function () {
+        try {
+          var doc = frame.contentDocument || frame.contentWindow.document;
+          var $doc = $j(doc);
+          var $box = $doc.find('div.box-round').first();
+          if (!$box.length) { return; }
+
+          $doc.find('body').empty().append($box);
+          $box.css({ 'margin': '0' });
+
+          var height = $box.outerHeight(true);
+          if (height) {
+            frame.style.height = height + 'px';
+          }
+          frame.style.visibility = 'visible';
+        } catch (e) {
+          // Ignore cross-frame access issues.
+        }
+      });
+    }
   </script>
 </body>
 
