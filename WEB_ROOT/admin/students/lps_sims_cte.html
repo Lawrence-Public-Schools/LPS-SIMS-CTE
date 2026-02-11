@@ -69,22 +69,34 @@
             <select name="[Students.S_MA_STU_CTE_X]CTESpecialPopulations" id="MA_CTESpecialPopulations">
               ~[if.ModAccess]
                 ~[tlist_sql;
-                   SELECT
-                       code,
-                       className,
-                       selected,
-                       disabled,
-                       description
-                   FROM
-                       TABLE(MA_PARAMS.getDropDownHTML('MA_XX','CTESpecialPopulations','~([Students.S_MA_STU_CTE_X]CTESpecialPopulations)',~(curtermid),'BU'));
-               ]    <option value='~(code;t)' class='~(className;t)' ~(selected;t) ~(disabled;t)>~(description;t)</option>[/tlist_sql]
+                  SELECT
+                    code,
+                    CASE WHEN code = '~([Students.S_MA_STU_CTE_X]CTESpecialPopulations)' THEN 'selected' ELSE '' END selected,
+                    disabled,
+                    description
+                  FROM (
+                    SELECT '500' code, '' disabled, 'Does not apply to student (500)' description FROM dual
+                    UNION ALL
+                    SELECT '01' code, 'disabled' disabled, 'Educationally Disadvantaged (01)' description FROM dual
+                    UNION ALL
+                    SELECT '02' code, '' disabled, 'Single Parent (02)' description FROM dual
+                    UNION ALL
+                    SELECT '03' code, 'disabled' disabled, 'Educationally Disadvantaged and Single Parent (03)' description FROM dual
+                  ) opts
+                  ORDER BY code;
+                ]    <option value="~(code;t)" ~(selected;t) ~(disabled;t)>~(description;t)</option>[/tlist_sql]
               [else]
                 ~[tlist_sql;
-                    SELECT description
-                    FROM PS_COMMON_CODE WHERE PS_GROUP='MA_XX' AND CATEGORY  ='CTESpecialPopulations'
-                    AND code = '~([Students.S_MA_STU_CTE_X]CTESpecialPopulations)']
+                  SELECT
+                    CASE '~([Students.S_MA_STU_CTE_X]CTESpecialPopulations)'
+                      WHEN '01' THEN 'Educationally Disadvantaged (01)'
+                      WHEN '02' THEN 'Single Parent (02)'
+                      WHEN '03' THEN 'Educationally Disadvantaged and Single Parent (03)'
+                      ELSE 'Does not apply to student (500)'
+                    END description
+                  FROM dual;
+                ]
                 ~(description)
-
                 [/tlist_sql]
               [/if]
             </select><span id="nonEditSpan_MA_CTESpecialPopulations"></span><br>(if not defined, "500" is extracted)
