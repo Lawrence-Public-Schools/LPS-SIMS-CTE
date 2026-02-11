@@ -6,7 +6,7 @@
 	  "version": "24.12.1.0",
 	  "contextType": "student",
 	  "requiredContext": "student",
-	  "sortOrder": 1025,
+	  "sortOrder": 1019,
 	  "pageURL": "/admin/students/lps_sims_cte.html?frn=~(studentfrn)",
 	  "parentHTMLID": "navUSA_MAStudent"
 	}

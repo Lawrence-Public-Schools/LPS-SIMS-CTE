@@ -1,5 +1,13 @@
 <script type="text/javascript">
 $j(document).ready(function () {
+  // If the page catalog already injected the nav item, do nothing.
+  if ($j("#navlps_sims_cte").length) {
+    return;
+  }
+  if ($j("a[href*='lps_sims_cte.html']").length) {
+    return;
+  }
+
   var $cte = $j('<li><a href="lps_sims_cte.html?frn=~(studentfrn)">SIMS - CTE Ch74</a></li>');
   // Keep alphabetical with other SIMS links: try to insert before SIMS - Early College, otherwise fall back after the MA state link.
   var $early = $j("ul#std_information > li > a:contains('SIMS - Early College')").parent();
