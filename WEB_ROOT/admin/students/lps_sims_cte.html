@@ -2024,6 +2024,7 @@
 	}
 function checkDefaultInfo()  
 {
+/* LPS: DOE012, DOE033 and DOE037 doe not exist on the page, so skip these checks
 	if(document.getElementById('enrollstatus').value == "04"
 	&& (document.getElementById('futureplans').value == "500"
 		|| document.getElementById('gradstatus').value == "00"))
@@ -2040,6 +2041,7 @@ function checkDefaultInfo()
 		return false;
 	}
 
+*/
 /* Autocalculate is currently disabled for PSSR-218671.	
 /*		
 	if(document.getElementById('MA_SchoolCode').value=="" || document.getElementById('MA_AltEd').value=="")
