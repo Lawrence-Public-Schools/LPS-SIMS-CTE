@@ -19,37 +19,35 @@
 	<!-- Start of CTE SIMS bounding box -->
 	<div class="box-round">
 	<table border="0" cellspacing="0" cellpadding="4">
-        <tr class="~[evenoddrow]">
-          <td class="bold">DOE035</td>
-          <td class="bold" title="[Students.S_MA_STU_CTE_X]ProgramType">Career &amp; Technical Education - Type of Program</td>
-        </tr>
-        <tr class="~[evenoddrow;maintain]">
-          <td>&nbsp;</td>
-          <td>
-            <select name="[Students.S_MA_STU_CTE_X]ProgramType" id="MA_OEPType">
-              ~[if.ModAccess]
-                ~[tlist_sql;
-                   SELECT
-                       code,
-                       className,
-                       selected,
-                       disabled,
-                       description
-                   FROM
-                       TABLE(MA_PARAMS.getDropDownHTML('MA_XX','MA_OEPType','~([Students.S_MA_STU_CTE_X]ProgramType)',~(curtermid),'BU'));
-               ]    <option value='~(code;t)' class='~(className;t)' ~(selected;t) ~(disabled;t)>~(description;t)</option>[/tlist_sql]
-              [else]
-                ~[tlist_sql;
-                    SELECT description
-                    FROM PS_COMMON_CODE WHERE PS_GROUP='MA_XX' AND CATEGORY  ='MA_OEPType'
-                    AND code = '~([Students.S_MA_STU_CTE_X]ProgramType)']
-                ~(description)
-
-                [/tlist_sql]
-              [/if]
-            </select><span id="nonEditSpan_MA_OEPType"></span><br>(if not defined, "00" is extracted)
-          </td>
-        </tr>
+<tr class="~[evenoddrow]">
+<td class="bold">DOE035</td>
+<td class="bold" title="[Students.S_MA_STU_CTE_X]ProgramType">CCTE - Type of Program</td>
+</tr>
+<tr class="~[evenoddrow;maintain]">
+<td>&nbsp;</td>
+<td><select name="[Students.S_MA_STU_CTE_X]ProgramType" id="MA_OEPType">
+ ~[if.ModAccess]
+            ~[tlist_sql;
+           SELECT
+               code,
+               className,
+               selected,
+               disabled,
+               description
+           FROM
+               TABLE(MA_PARAMS.getDropDownHTML('MA_XX','MA_OEPType','~([Students.S_MA_STU_CTE_X]ProgramType)',~(curtermid),'BU'));
+       ]    <option value='~(code;t)' class='~(className;t)' ~(selected;t) ~(disabled;t)>~(description;t)</option>[/tlist_sql]
+        [else]
+        ~[tlist_sql;
+            SELECT description
+            FROM PS_COMMON_CODE WHERE PS_GROUP='MA_XX' AND CATEGORY  ='MA_OEPType'
+            AND code = '~([Students.S_MA_STU_CTE_X]ProgramType)']
+        ~(description)
+            
+        [/tlist_sql]
+    [/if]  
+</select><span id="nonEditSpan_MA_OEPType"></span><br>(if not defined, "00" is extracted)</td>
+</tr>
 
         <tr class="~[evenoddrow]">
           <td class="bold">DOE042</td>
