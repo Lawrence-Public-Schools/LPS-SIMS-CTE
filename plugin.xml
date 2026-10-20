@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://plugin.powerschool.pearson.com plugin.xsd"
         name="LPS SIMS - CTE Chapter 74"
-        version="24.12.1.0"
+        version="26.10.1.0"
         description="Custom SIMS page to surface Chapter 74 CTE program data (DOE035, DOE043, DOE044).">
     <publisher name="Lawrence Public Schools">
         <contact email="MahammedKhalifa@lawrence.k12.ma.us"/>
